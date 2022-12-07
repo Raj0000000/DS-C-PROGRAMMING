@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+void countsorting(int arr[], int n, int n1)
+{
+// creating an integer array of size n for sorted array
+int outputArray[n];
+// creating an integer array of size n1, initialized by zero
+int freqArray[n1];
+memset(freqArray, 0, sizeof(freqArray));
+// Using the value of each item in an input array as index,
+for (int i = 0; i < n; i++) {
+freqArray[arr[i]]++;
+}
+// Calculating starting index for each integer
+int totalCount = 0;
+for (int i = 0; i < n1; i++)
+{
+int oldEleCount = freqArray[i];
+freqArray[i] = totalCount;
+totalCount += oldEleCount;
+}
+// Copying to output array, and preserving order of inputs with equal keys
+for (int i = 0; i < n; i++)
+{
+outputArray[freqArray[arr[i]]] = arr[i];
+freqArray[arr[i]]++;
+}
+// copying output array back to the input array
+for (int i = 0; i < n; i++) {
+arr[i] = outputArray[i];
+}
+}
+int main()
+{
+int arr[] = { 4, 5, 2, 2, 1, 5, 4, 5,4,5,5,2,5,4,1,3,5,2,5,5};
+int n = sizeof(arr) / sizeof(arr[0]);
+int n1 = 11;
+countsorting(arr, n, n1);
+for (int i = 0; i < n; i++) {
+printf("%d ", arr[i]);
+}
+return 0;
+}
